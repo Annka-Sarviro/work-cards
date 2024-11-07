@@ -39,7 +39,19 @@ export const SideBar = ({ storageKey = 'card-sidebar-state' }: SideBarProps) => 
     };
 
     if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
-        return <Skeleton />;
+        return (
+            <>
+                <div className="mb-2 flex justify-between items-center">
+                    <Skeleton className="h-10 w-1/2" />
+                    <Skeleton className="h-10 w-10" />
+                </div>
+                <div className="space-y-2">
+                    <NavItem.Skeleton />
+                    <NavItem.Skeleton />
+                    <NavItem.Skeleton />
+                </div>
+            </>
+        );
     }
 
     return (

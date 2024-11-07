@@ -1,20 +1,23 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/']);
 
 export default clerkMiddleware(async (auth, request) => {
+    const authData = await auth();
+
     if (!isPublicRoute(request)) {
+        // Protect the route if it's not public
         await auth.protect();
-    } else if ((await auth()).userId) {
+    } else if (authData.userId) {
+        // Redirect authenticated users to appropriate organization path
         let path = '/select-org';
 
-        if ((await auth()).orgId) {
-            path = `/organization/${(await auth()).orgId}`;
+        if (authData.orgId) {
+            path = `/organization/${authData.orgId}`;
         }
 
-        const orgSelection = new URL(path, request.url);
-        return NextResponse.redirect(orgSelection);
+        const redirectUrl = new URL(path, request.url);
+        return NextResponse.redirect(redirectUrl);
     }
 });
 
