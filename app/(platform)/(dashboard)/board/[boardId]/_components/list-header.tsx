@@ -11,8 +11,9 @@ import { ListOptions } from './list-options';
 
 interface ListHeaderProps {
     list: List;
+    onAddCard: () => void;
 }
-export const ListHeader = ({ list }: ListHeaderProps) => {
+export const ListHeader = ({ list, onAddCard }: ListHeaderProps) => {
     const [title, setTitle] = useState(list.title);
     const [isEditing, setIsEditing] = useState(false);
     const formRef = useRef<ElementRef<'form'>>(null);
@@ -97,7 +98,7 @@ export const ListHeader = ({ list }: ListHeaderProps) => {
                 </div>
             )}
 
-            <ListOptions onAddCard={() => {}} list={list} />
+            <ListOptions onAddCard={onAddCard} list={list} />
         </div>
     );
 };
