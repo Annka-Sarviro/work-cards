@@ -6,7 +6,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAction } from '@/hooks/use-action';
 import { CardWithList } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
-import { error } from 'console';
 import { Layout } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { ElementRef, useRef, useState } from 'react';
